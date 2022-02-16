@@ -2,6 +2,7 @@ package com.investment.companyservice.web;
 
 import com.investment.alphavantageapi.api.company.CompanyOverviewApi;
 import com.investment.alphavantageapi.model.company.CompanyOverviewData;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,6 +32,7 @@ public class CompanyOverviewControllerIntegrationTest {
     private Integer port;
 
     @Test
+    @Disabled
     public void shouldVerifyAndAssertCompanyOverviewApiResponse() {
         // given
         String ticker = "IBM";

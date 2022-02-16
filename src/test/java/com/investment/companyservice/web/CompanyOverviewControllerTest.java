@@ -20,11 +20,11 @@ import static org.mockito.BDDMockito.given;
 @ExtendWith(MockitoExtension.class)
 public class CompanyOverviewControllerTest {
 
-    @InjectMocks
-    private CompanyOverviewController companyOverviewController;
-
     @Mock
     private CompanyOverviewApi companyOverviewApi;
+
+    @InjectMocks
+    private CompanyOverviewController companyOverviewController;
 
     @Test
     public void shouldProductProblemDetailIfTickerIsNotProvided() {
