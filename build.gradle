@@ -36,9 +36,22 @@ dependencies {
 	implementation group: 'com.investment', name: 'web-security-library', version: '1.0'
 
 	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
+	implementation 'org.testng:testng:6.9.6'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	testCompile 'junit:junit:4.12'
+	testCompile 'org.testng:testng:6.9.6'
+	testCompile 'org.springframework.boot:spring-boot-starter-test'
+	testCompile 'org.springframework.boot:spring-boot-starter-web'
+	testCompile 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
+	testCompile 'org.springframework.boot:spring-boot-starter-aop'
 	testCompile group: 'com.investment', name: 'alpha-vantage-api', version: '1.0'
+	testCompile group: 'com.investment', name: 'investment-client-library', version: '1.0'
+	testCompile group: 'com.investment', name: 'error-handling', version: '1.0'
+	testCompile group: 'com.investment', name: 'web-security-library', version: '1.0'
+	testCompile 'com.google.code.gson:gson:2.8.6'
+	implementation 'org.projectlombok:lombok'
 }
 
 dependencyManagement {
@@ -48,5 +61,25 @@ dependencyManagement {
 }
 
 test {
-	useJUnitPlatform()
+	useJUnit()
+	maxHeapSize = '1G'
+}
+
+sourceSets {
+	integrationTest {
+		java {
+			compileClasspath += main.output + test.output
+			runtimeClasspath += main.output + test.output
+		}
+	}
+}
+
+configurations {
+	integrationTestCompile.extendsFrom testCompile
+	integrationTestRuntime.extendsFrom testRuntime
+}
+
+task integrationTest(type: Test) {
+	testClassesDirs = sourceSets.integrationTest.output.classesDirs
+	classpath = sourceSets.integrationTest.runtimeClasspath
 }
